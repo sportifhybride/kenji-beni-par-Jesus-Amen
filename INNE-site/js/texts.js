@@ -319,7 +319,8 @@ window.INNE_I18N = {
   "rv.how_t": "How reviews work",
   "rv.how": "Only clients who have followed an INNÉ path can post, with a personal one-time code. Kenji reads every review before it is published. Reviews are never refused for being negative: only insulting, off-topic or false content, or content revealing personal data, is removed. No review is paid for or rewarded. Reviews are shown from newest to oldest by default, with their publication date.",
   "rv.stars": "{n} out of 5",
-  "rv.verified": "Verified client"
+  "rv.verified": "Verified client",
+  "ft.credit": "Website created by Victor Castillo. Want a site like this one? <a href=\"https://sportifhybride.com/creation-site\" target=\"_blank\" rel=\"noopener\">Click here</a>."
  },
  "es": {
   "nav.home": "Inicio",
@@ -640,7 +641,8 @@ window.INNE_I18N = {
   "rv.how_t": "Cómo funcionan las opiniones",
   "rv.how": "Solo pueden publicar los clientes que han seguido un camino INNÉ, con un código personal de un solo uso. Kenji lee cada opinión antes de publicarla. Nunca se rechaza una opinión por ser negativa: solo se retiran los contenidos insultantes, fuera de tema, falsos o que revelen datos personales. Ninguna opinión se paga ni se recompensa. Por defecto, las opiniones se muestran de la más reciente a la más antigua, con su fecha de publicación.",
   "rv.stars": "{n} de 5",
-  "rv.verified": "Cliente verificado"
+  "rv.verified": "Cliente verificado",
+  "ft.credit": "Sitio web creado por Victor Castillo. ¿Quieres un sitio como este? <a href=\"https://sportifhybride.com/creation-site\" target=\"_blank\" rel=\"noopener\">Haz clic aquí</a>."
  },
  "fr": {
   "nav.home": "Accueil",
@@ -961,7 +963,8 @@ window.INNE_I18N = {
   "rv.how_t": "Comment fonctionnent les avis",
   "rv.how": "Seuls les clients ayant suivi un parcours INNÉ peuvent publier, avec un code personnel à usage unique. Kenji lit chaque avis avant sa publication. Un avis n'est jamais refusé parce qu'il est négatif : seuls les contenus injurieux, hors sujet, faux ou révélant des données personnelles sont écartés. Aucun avis n'est rémunéré ni récompensé. Par défaut, les avis sont affichés du plus récent au plus ancien, avec leur date de publication.",
   "rv.stars": "{n} sur 5",
-  "rv.verified": "Client vérifié"
+  "rv.verified": "Client vérifié",
+  "ft.credit": "Site créé par Victor Castillo. Vous voulez un site comme celui-ci ? <a href=\"https://sportifhybride.com/creation-site\" target=\"_blank\" rel=\"noopener\">Cliquez ici</a>."
  },
  "sv": {
   "nav.home": "Hem",
@@ -1282,7 +1285,8 @@ window.INNE_I18N = {
   "rv.how_t": "Så fungerar omdömena",
   "rv.how": "Bara kunder som har följt en INNÉ-väg kan skriva, med en personlig engångskod. Kenji läser varje omdöme innan det publiceras. Ett omdöme avvisas aldrig för att det är negativt: endast kränkande, ovidkommande eller falskt innehåll, eller innehåll som avslöjar personuppgifter, tas bort. Inga omdömen är betalda eller belönade. Som standard visas omdömena från nyast till äldst, med publiceringsdatum.",
   "rv.stars": "{n} av 5",
-  "rv.verified": "Verifierad kund"
+  "rv.verified": "Verifierad kund",
+  "ft.credit": "Webbplatsen är skapad av Victor Castillo. Vill du ha en sådan här webbplats? <a href=\"https://sportifhybride.com/creation-site\" target=\"_blank\" rel=\"noopener\">Klicka här</a>."
  },
  "de": {
   "nav.home": "Start",
@@ -1603,7 +1607,8 @@ window.INNE_I18N = {
   "rv.how_t": "So funktionieren die Bewertungen",
   "rv.how": "Nur Kundinnen und Kunden, die einen INNÉ-Weg gegangen sind, können mit einem persönlichen Einmalcode eine Bewertung abgeben. Kenji liest jede Bewertung vor der Veröffentlichung. Eine Bewertung wird nie abgelehnt, weil sie negativ ist: Entfernt werden nur beleidigende, themenfremde, falsche oder personenbezogene Inhalte. Keine Bewertung wird bezahlt oder belohnt. Standardmäßig werden die Bewertungen von der neuesten zur ältesten mit ihrem Veröffentlichungsdatum angezeigt.",
   "rv.stars": "{n} von 5",
-  "rv.verified": "Verifizierte Kundin / verifizierter Kunde"
+  "rv.verified": "Verifizierte Kundin / verifizierter Kunde",
+  "ft.credit": "Website erstellt von Victor Castillo. Du willst eine Website wie diese? <a href=\"https://sportifhybride.com/creation-site\" target=\"_blank\" rel=\"noopener\">Hier klicken</a>."
  },
  "it": {
   "nav.home": "Home",
@@ -1924,6 +1929,7 @@ window.INNE_I18N = {
   "rv.how_t": "Come funzionano le recensioni",
   "rv.how": "Possono pubblicare solo i clienti che hanno seguito un percorso INNÉ, con un codice personale monouso. Kenji legge ogni recensione prima della pubblicazione. Una recensione non viene mai rifiutata perché negativa: vengono esclusi solo contenuti offensivi, fuori tema, falsi o che rivelano dati personali. Nessuna recensione è pagata o ricompensata. Per impostazione predefinita le recensioni sono mostrate dalla più recente alla meno recente, con la data di pubblicazione.",
   "rv.stars": "{n} su 5",
-  "rv.verified": "Cliente verificato"
+  "rv.verified": "Cliente verificato",
+  "ft.credit": "Sito creato da Victor Castillo. Vuoi un sito come questo? <a href=\"https://sportifhybride.com/creation-site\" target=\"_blank\" rel=\"noopener\">Clicca qui</a>."
  }
 };
