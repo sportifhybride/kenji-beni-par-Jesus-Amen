@@ -591,6 +591,7 @@ html.nav-compact.nav-open .site-header{background:#0f1c13}
 .begin-solo{max-width:680px}
 .social{align-items:flex-end}
 .foot-credit{display:grid;gap:6px;justify-items:start;margin:0}
+@media (min-width:821px){.social{flex-wrap:nowrap}}
 .foot-credit .fc-text{font-size:11px;line-height:1.35;color:var(--ivory);opacity:.75}
 .foot-credit .fc-text b{color:#dcc27c;font-weight:600}
 @media (max-width:820px){
@@ -598,7 +599,9 @@ html.nav-compact.nav-open .site-header{background:#0f1c13}
   .social .social-btn{padding:11px 14px;gap:8px;font-size:10.5px;letter-spacing:.12em;white-space:nowrap}
   .social .social-btn svg{width:17px;height:17px}
   .social .social-btn small{font-size:10.5px}
-  .social{grid-template-columns:auto auto;justify-content:start}
+  .social{grid-template-columns:auto minmax(0,1fr);justify-content:stretch}
+  .foot-credit{justify-items:stretch}
+  .foot-credit .social-btn{width:100%;justify-content:center;min-height:41px}
   .foot-credit{min-width:0}
   .foot-credit .social-btn svg{display:none}
   .foot-credit .social-btn{max-width:100%;padding:11px 12px;letter-spacing:.08em;white-space:normal;text-align:center;line-height:1.2}
