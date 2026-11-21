@@ -601,6 +601,7 @@ html.nav-compact.nav-open .site-header{background:#0f1c13}
   .social .social-btn small{font-size:10.5px}
   .social{grid-template-columns:auto minmax(0,1fr);justify-content:stretch}
   .foot-credit{justify-items:stretch}
+  .foot-credit .fc-text{text-align:center}
   .foot-credit .social-btn{width:100%;justify-content:center;min-height:41px}
   .foot-credit{min-width:0}
   .foot-credit .social-btn svg{display:none}
