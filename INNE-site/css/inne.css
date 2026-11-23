@@ -627,3 +627,17 @@ html.nav-compact.nav-open .site-header{background:#0f1c13}
   .contact-row .social-btn small{display:none}
   .contact-row .social-btn:last-child{grid-column:1/-1}
 }
+
+/* ---------- Welcome pages ---------- */
+.welcome{background:radial-gradient(ellipse at 50% 0%,#24391f,var(--forest) 70%);min-height:80vh;padding:150px 0 100px}
+.wl-card{max-width:640px;text-align:center}
+.wl-card .h2{margin:6px 0 22px}
+.wl-card p{font-size:17px;line-height:1.7;opacity:.92}
+.wl-card .wl-small{font-size:14px;opacity:.75}
+.wl-letter{max-width:680px;margin:0 auto;padding:clamp(34px,6vw,64px);border:1.5px solid #dcc27c;border-radius:12px;background:linear-gradient(180deg,rgba(220,194,124,.08),rgba(220,194,124,.02));box-shadow:0 0 0 1px rgba(220,194,124,.25),0 40px 80px -40px rgba(0,0,0,.7);text-align:center}
+.wl-letter .wl-logo{width:150px;height:auto;margin:-10px auto 10px}
+.wl-letter .eyebrow{color:#dcc27c}
+.wl-letter h1{font:500 clamp(30px,4vw,46px)/1.15 var(--serif);text-transform:uppercase;margin:6px 0 28px}
+.wl-letter p{font:400 clamp(18px,1.8vw,21px)/1.65 var(--serif);margin:0 0 18px;opacity:.95}
+.wl-letter .wl-close{font-style:italic;color:#dcc27c}
+.wl-letter .wl-sign{font:italic 500 30px/1 var(--serif);color:#dcc27c;margin:28px 0 0}

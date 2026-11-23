@@ -178,6 +178,7 @@
   if (co) {
     var pay = $("#co-pay"), msg = $("#co-msg"), boxes = [$("#co-terms"), $("#co-waive")];
     var wanted = (location.hash || "").replace("#", "") || (pre && pre[1]) || "foundation";
+    $$("[data-method]", co).forEach(function (o) { o.hidden = !CFG[o.getAttribute("data-method")]; });
     if (!KEYS[wanted]) wanted = "foundation";
     $$("input[name=path]", co).forEach(function (r) { r.checked = r.value === wanted; });
     var vset = $("#co-version"), vmsg = $("#co-vmsg"), vnote = $("#co-vnote"), vtext = $("#co-vtext");
@@ -188,13 +189,22 @@
       var guide = needsVersion(), v = versionKey();
       if (vset) vset.hidden = !guide;
       var vok = !guide || !!v;
-      var ok = boxes[0].checked && boxes[1].checked && vok && !!CFG.paypal;
-      $("#co-total").textContent = t("price." + k);
+      var planSet = $("#co-plan"), split = !!CFG.installments && k !== "f";
+      if (planSet) planSet.hidden = !split;
+      var three = split && ($("input[name=plan]:checked", co) || {}).value === "3";
+      if (split) $("#co-inst").textContent = t("inst." + k);
+      var method = ($("input[name=method]:checked", co) || {}).value || "paypal";
+      var link = method === "paypal" ? CFG.paypal : CFG[method];
+      var ok = boxes[0].checked && boxes[1].checked && vok && !!link;
+      $("#co-total").textContent = three ? "3 × " + t("inst." + k) : t("price." + k);
+      var man = $("#co-manual"); if (man) man.hidden = method === "paypal";
       if (vnote) {
         vnote.hidden = !(guide && v);
         if (guide && v) vtext.textContent = t("co.guide") + " — " + t(v === "women" ? "co.women" : "co.men");
       }
-      pay.href = ok ? CFG.paypal.replace(/\/$/, "") + "/" + t("pay." + k) : "#";
+      pay.href = !ok ? "#" : method === "paypal" ? CFG.paypal.replace(/\/$/, "") + "/" + t((three ? "payi." : "pay.") + k) : link;
+      var payLabel = $("[data-i18n]", pay);
+      if (payLabel) { payLabel.setAttribute("data-i18n", method === "paypal" ? "co.pay" : "co.open"); payLabel.innerHTML = t(method === "paypal" ? "co.pay" : "co.open"); }
       pay.setAttribute("aria-disabled", ok ? "false" : "true");
       if (ok) { msg.hidden = true; if (vmsg) vmsg.hidden = true; }
       if (vok && vmsg) vmsg.hidden = true;

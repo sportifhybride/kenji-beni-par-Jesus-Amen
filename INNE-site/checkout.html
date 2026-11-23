@@ -34,6 +34,14 @@
     <fieldset id="co-version" hidden><legend data-i18n="co.version">Guide version</legend>
       <div class="option-pair"><label class="option"><input type="radio" name="version" value="women"><span class="option-body"><b data-i18n="co.women">Women</b><small data-i18n="co.wpages">≈ 30 pages</small></span></label><label class="option"><input type="radio" name="version" value="men"><span class="option-body"><b data-i18n="co.men">Men</b><small data-i18n="co.mpages">≈ 50 pages</small></span></label></div>
     </fieldset>
+    <fieldset id="co-plan" hidden><legend data-i18n="co.plan">Payment</legend>
+      <div class="option-pair"><label class="option"><input type="radio" name="plan" value="1" checked><span class="option-body"><b data-i18n="co.plan1">Pay in full</b></span></label><label class="option"><input type="radio" name="plan" value="3"><span class="option-body"><b data-i18n="co.plan3">Pay in 3 instalments</b><small><span data-i18n="co.plan3_d">Interest-free, no fees: 3 monthly payments of</span> <span id="co-inst"></span></small></span></label></div>
+    </fieldset>
+    <fieldset id="co-method"><legend data-i18n="co.method">Payment method</legend>
+      <label class="option"><input type="radio" name="method" value="paypal" checked><span class="option-body"><b data-i18n="co.m_pp">PayPal or bank card</b><small data-i18n="co.m_pp_d">With or without a PayPal account. Your access is confirmed automatically.</small></span></label>
+      <label class="option" data-method="wise" hidden><input type="radio" name="method" value="wise"><span class="option-body"><b data-i18n="co.m_wise">Wise</b><small data-i18n="co.m_manual_d">Kenji checks your payment and sends you your access personally.</small></span></label>
+      <label class="option" data-method="revolut" hidden><input type="radio" name="method" value="revolut"><span class="option-body"><b data-i18n="co.m_rev">Revolut</b><small data-i18n="co.m_manual_d">Kenji checks your payment and sends you your access personally.</small></span></label>
+    </fieldset>
     <label class="check"><input type="checkbox" id="co-terms"><span data-i18n="co.terms">I have read and accept the <a href="terms.html">Terms of sale</a>.</span></label>
     <label class="check"><input type="checkbox" id="co-waive"><span data-i18n="co.waive">I ask for my guide or program to start before the end of the 14-day withdrawal period, and I understand that I lose my right of withdrawal for digital content once it has been delivered.</span></label>
     <p class="total"><span data-i18n="co.total">Total</span><strong id="co-total"></strong></p>
@@ -43,7 +51,7 @@
     <p class="fineprint co-vnote" id="co-vnote" hidden><span data-i18n="co.note">In the PayPal payment note, please write:</span> <strong id="co-vtext"></strong></p>
     <p class="fineprint" data-i18n="co.redirect">You will be taken to PayPal to complete your payment.</p>
     <p class="fineprint" data-i18n="co.after">After payment, you receive an email invitation to access your program.</p>
-    <p class="fineprint"><span data-i18n="co.wise">Prefer to pay with Wise? Write to</span> <a data-contact-email href="#"></a></p>
+    <p class="fineprint" id="co-manual" hidden><span data-i18n="co.m_manual">After paying, write to Kenji with your name and the path you chose:</span> <a data-contact-email href="#"></a></p>
   </div>
   <div class="frame ratio-45 reveal d1"><img src="img/hero.jpg" alt="Kenji standing in a bamboo forest" loading="lazy" style="object-position:50% 20%"></div>
 </div></section>

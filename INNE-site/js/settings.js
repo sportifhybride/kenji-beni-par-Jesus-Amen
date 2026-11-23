@@ -14,6 +14,9 @@ window.INNE_CONFIG = {
   paypal: "https://www.paypal.me/KenjiBehary",
   formEndpoint: "",
   newsletterEndpoint: "",
+  wise: "",          // Wise payment link (empty = option hidden)
+  revolut: "",       // Revolut payment link, e.g. https://revolut.me/... (empty = hidden)
+  installments: false, // true = offer "pay in 3" for The Program and The Private Experience
   social: { instagram: "https://www.instagram.com/kenjibfit", youtube: "" },
   consentMonths: 6,
   analytics: function () { /* no audience tool installed yet */ }
