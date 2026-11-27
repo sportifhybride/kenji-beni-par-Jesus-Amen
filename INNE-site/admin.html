@@ -44,6 +44,9 @@
   .err{color:#a33a20;font-size:14px;margin-top:8px}
   .ok{color:#3d5a1d;font-size:14px;margin-top:8px}
   .empty{opacity:.75;font-style:italic;padding:8px 0}
+  .guide-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:14px 0;border-top:1px solid rgba(48,61,37,.15)}
+  .guide-row label.btn{margin:0;display:inline-flex;letter-spacing:.12em;text-transform:uppercase;font-size:11px;cursor:pointer}
+  @media (max-width:640px){.guide-row{grid-template-columns:1fr 1fr}.guide-row>div{grid-column:1/-1}}
   .adm .btn-ghost{background:transparent;color:var(--ivory)}
   .adm-card .btn-ink{background:transparent}
 </style>
@@ -70,6 +73,7 @@
       <button type="button" data-status="published" aria-pressed="false">Publiés<span class="n" id="n-published">0</span></button>
       <button type="button" data-status="rejected" aria-pressed="false">Refusés<span class="n" id="n-rejected">0</span></button>
       <button type="button" data-status="codes" aria-pressed="false">Codes clients</button>
+      <button type="button" data-status="guides" aria-pressed="false">Guides</button>
       <button type="button" data-status="settings" aria-pressed="false">Mot de passe</button>
     </div>
 
@@ -89,6 +93,16 @@
       <section class="adm-card">
         <h2>Tous les codes</h2>
         <div id="codes-list"></div>
+      </section>
+    </div>
+
+    <div id="view-guides" hidden>
+      <section class="adm-card">
+        <h2>Guides PDF</h2>
+        <p class="note">Les guides sont rangés en privé : personne ne peut les télécharger sans avoir payé. Dépose ici la version finale de chaque guide. Pour la remplacer plus tard, dépose simplement le nouveau fichier.</p>
+        <div class="guide-row" data-v="women"><div><b>Guide Femme</b><div class="note gs"></div></div><label class="btn btn-solid">Déposer le PDF<input type="file" accept="application/pdf" hidden></label><button type="button" class="btn btn-ink gdl">Télécharger</button></div>
+        <div class="guide-row" data-v="men"><div><b>Guide Homme</b><div class="note gs"></div></div><label class="btn btn-solid">Déposer le PDF<input type="file" accept="application/pdf" hidden></label><button type="button" class="btn btn-ink gdl">Télécharger</button></div>
+        <p id="g-msg" hidden></p>
       </section>
     </div>
 
@@ -158,10 +172,12 @@
   function show(view) {
     current = view;
     Array.prototype.forEach.call(document.querySelectorAll("#tabs button"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-status") === view ? "true" : "false"); });
-    $("view-reviews").hidden = view === "codes" || view === "settings";
+    $("view-reviews").hidden = view === "codes" || view === "settings" || view === "guides";
+    $("view-guides").hidden = view !== "guides";
     $("view-codes").hidden = view !== "codes";
     $("view-settings").hidden = view !== "settings";
     if (view === "codes") loadCodes();
+    else if (view === "guides") loadGuides();
     else if (view !== "settings") loadReviews(view);
     else refreshCounts();
   }
@@ -254,6 +270,37 @@
       box.appendChild(tb);
     }).catch(function () {});
   }
+
+  /* ---------- guides ---------- */
+  function mb(n) { return (n / 1048576).toFixed(1).replace(".", ",") + " Mo"; }
+  function loadGuides() {
+    api("/api/admin/guides").then(function (d) {
+      Array.prototype.forEach.call(document.querySelectorAll(".guide-row"), function (row) {
+        var g = d[row.getAttribute("data-v")], st = row.querySelector(".gs");
+        st.textContent = g ? "En ligne — " + (g.name || "PDF") + " · " + mb(g.size) + " · " + fmt(g.uploaded) : "Pas encore déposé";
+        row.querySelector(".gdl").hidden = !g;
+      });
+    }).catch(function () {});
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".guide-row"), function (row) {
+    var v = row.getAttribute("data-v"), input = row.querySelector("input[type=file]"), m = $("g-msg");
+    input.addEventListener("change", function () {
+      var f = input.files[0]; if (!f) return;
+      m.hidden = false; m.className = "note"; m.textContent = "Envoi de " + f.name + " (" + mb(f.size) + ")…";
+      fetch("/api/admin/guides/" + v, { method: "PUT", headers: { authorization: "Bearer " + pw, "content-type": "application/pdf", "x-file-name": encodeURIComponent(f.name) }, body: f })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (res.ok) { m.className = "ok"; m.textContent = "Guide " + (v === "women" ? "Femme" : "Homme") + " enregistré."; loadGuides(); }
+          else { m.className = "err"; m.textContent = res.j.error === "not_pdf" ? "Ce fichier n'est pas un PDF." : res.j.error === "size" ? "Fichier trop lourd (60 Mo maximum)." : "Erreur, réessaie."; }
+        }).catch(function () { m.className = "err"; m.textContent = "Erreur réseau, réessaie."; })
+        .then(function () { input.value = ""; });
+    });
+    row.querySelector(".gdl").addEventListener("click", function () {
+      fetch("/api/admin/guides/" + v, { headers: { authorization: "Bearer " + pw } }).then(function (r) { return r.blob(); }).then(function (b) {
+        var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "INNE-guide-" + v + ".pdf"; document.body.appendChild(a); a.click(); a.remove();
+      });
+    });
+  });
 
   /* ---------- password ---------- */
   $("pw-form").addEventListener("submit", function (e) {

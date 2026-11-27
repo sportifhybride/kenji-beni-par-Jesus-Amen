@@ -44,6 +44,10 @@ async function route(request, env, url) {
     if (p === "/api/admin/codes" && m === "POST") return createCodes(request, env);
     if (p === "/api/admin/codes/delete" && m === "POST") return deleteCode(request, env);
     if (p === "/api/admin/password" && m === "POST") return changePassword(request, env);
+    if (p === "/api/admin/guides" && m === "GET") return guideStatus(env);
+    const gm = p.match(/^\/api\/admin\/guides\/(women|men)$/);
+    if (gm && m === "PUT") return guideUpload(request, env, gm[1]);
+    if (gm && m === "GET") return guideDownload(env, gm[1]);
   }
   return json({ error: "not_found" }, 404);
 }
@@ -56,6 +60,7 @@ function json(data, status = 200) {
   });
 }
 async function body(request) {
+  if (request.method === "PUT") return null;
   const len = Number(request.headers.get("content-length") || 0);
   if (len > 20000) return null;
   try { return await request.json(); } catch (e) { return null; }
@@ -198,4 +203,33 @@ async function deleteCode(request, env) {
   const b = (await body(request)) || {};
   await env.DB.prepare("DELETE FROM codes WHERE code = ? AND used_at IS NULL").bind(String(b.code || "")).run();
   return json({ ok: true });
+}
+
+/* ---------- admin: guide PDFs (private R2 bucket, binding GUIDES) ---------- */
+const GUIDE_KEY = { women: "guide-women.pdf", men: "guide-men.pdf" };
+async function guideStatus(env) {
+  if (!env.GUIDES) return json({ error: "no_storage" }, 500);
+  const out = {};
+  for (const v of ["women", "men"]) {
+    const o = await env.GUIDES.head(GUIDE_KEY[v]);
+    out[v] = o ? { size: o.size, uploaded: o.uploaded, name: (o.customMetadata || {}).name || "" } : null;
+  }
+  return json(out);
+}
+async function guideUpload(request, env, v) {
+  if (!env.GUIDES) return json({ error: "no_storage" }, 500);
+  const len = Number(request.headers.get("content-length") || 0);
+  if (!len || len > 60 * 1024 * 1024) return json({ error: "size" }, 400);
+  const buf = await request.arrayBuffer();
+  const head = new Uint8Array(buf, 0, 5);
+  if (String.fromCharCode(...head) !== "%PDF-") return json({ error: "not_pdf" }, 400);
+  const name = clean(decodeURIComponent(request.headers.get("x-file-name") || ""), 120);
+  await env.GUIDES.put(GUIDE_KEY[v], buf, { httpMetadata: { contentType: "application/pdf" }, customMetadata: { name } });
+  return json({ ok: true, size: buf.byteLength });
+}
+async function guideDownload(env, v) {
+  if (!env.GUIDES) return json({ error: "no_storage" }, 500);
+  const o = await env.GUIDES.get(GUIDE_KEY[v]);
+  if (!o) return json({ error: "not_found" }, 404);
+  return new Response(o.body, { headers: { "content-type": "application/pdf", "cache-control": "no-store", "content-disposition": 'attachment; filename="INNE-guide-' + v + '.pdf"' } });
 }
